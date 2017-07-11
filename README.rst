@@ -413,4 +413,6 @@ License
 -------
 The plugin is based in code from the Open Komodo Editor and has a MPL license.
 
+See the `LICENSE.txt` file under this repository.
+
 Ported from Open Komodo by German M. Bravo (Kronuz).
