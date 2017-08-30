@@ -1783,8 +1783,8 @@ class SublimecodeintelCommand(SublimecodeintelWindowCommand):
         if active is not None:
             view = self.window.active_view()
             enabled = enabled and codeintel_enabled(view, True) == active
-
             # print("( SublimecodeintelCommand ) WINDOW COMMAND ENABLED %s" % enabled)
+
         return bool(enabled)
 
     def run_(self, args={}):

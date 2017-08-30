@@ -331,6 +331,14 @@ class PHPLangIntel(CitadelLangIntel, ParenStyleCalltipIntelMixin,
                         return Trigger(lang, TRG_FORM_CPLN, "use-namespace",
                                        pos, implicit)
                     elif prev_text[1] == "namespace": #namespace completions on "namespace" keyword!
+
+                        if DEBUG:
+                            print "Triggering namespace completion"
+                        return Trigger(
+                            lang, TRG_FORM_CPLN, "namespace-members-nmspc-only",
+                            pos, implicit)
+                    else:
+
                         if DEBUG:
                             print("Triggering namespace completion")
                         return Trigger(
@@ -355,6 +363,7 @@ class PHPLangIntel(CitadelLangIntel, ParenStyleCalltipIntelMixin,
                         prev_style, self.comment_styles)
                     if DEBUG:
                         print("Preceding: %d, %r, %d" % (p, c, style))
+
                     if style is None:
                         return None
                     elif style == self.keyword_style:
@@ -367,6 +376,7 @@ class PHPLangIntel(CitadelLangIntel, ParenStyleCalltipIntelMixin,
                             print("Keyword text: %d, %r" % (p, text))
                             ac.dump()
                         print(text)
+
                         #if text not in ("parent", "self", "static"):
                         #    return None
                     return Trigger(lang, TRG_FORM_CPLN, "static-members",
@@ -412,6 +422,7 @@ class PHPLangIntel(CitadelLangIntel, ParenStyleCalltipIntelMixin,
                         if last_keyword == "function":
                             if DEBUG:
                                 print("triggered:: complete magic-methods")
+
                             return Trigger(
                                 lang, TRG_FORM_CPLN, "magic-methods",
                                 prev_pos, implicit)
