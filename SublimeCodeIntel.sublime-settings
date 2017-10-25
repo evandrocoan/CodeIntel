@@ -1,144 +1,169 @@
 /*
-   SublimeCodeIntel default settings
-   All settings can be overridden in *.sublime-project file
+    SublimeCodeIntel default settings
 */
 {
-    /*
-       Sets the mode in which SublimeCodeIntel runs:
+    "default": {
+        /*
+            debug - Enbles/disables debug mode.
+        */
+        "debug": false,
 
-       true - Enabled (the default).
-       false - Disabled.
-    */
-    "codeintel": true,
+        /*
+            live - Enbles/disables live codeintel autocomplete.
+        */
+        "live": true,
 
-    /* path to codeintel database */
-    "codeintel_database_dir": "~/.codeintel",
-
-    /*
-       An array of language names which are enabled.
-    */
-    "codeintel_enabled_languages":
-    [
-       "JavaScript", "SCSS", "Python", "HTML",
-       "Ruby", "Python3", "XML", "Sass", "HTML5", "Perl", "CSS",
-       "Twig", "Less", "Node.js", "TemplateToolkit", "PHP"
-    ],
-
-    /*
-       Maps syntax names to languages. This allows variations on a syntax
-       (for example "Python (Django)") to be used. The key is
-       the base filename of the .tmLanguage syntax files, and the value
-       is the syntax it maps to.
-    */
-    "codeintel_syntax_map":
-    {
-       "Python Django": "Python"
-    },
-
-
-    /* ####################################################################### */
-    /* the following settings can be overridden for each language individually */
-    /* see "codeintel_language_settings" below!                                */
-    /* ####################################################################### */
-
-    /*
-       Sets the mode in which SublimeCodeIntel's live autocomplete runs:
-
-       true - Autocomplete popups as you type (the default).
-       false - Autocomplete popups only when you request it.
-    */
-    "codeintel_live": true,
-
-    /*
-       Tooltips method:
-
-       "popup" - Uses Autocomplete popup for tooltips.
-       "panel" - Uses the output panel for tooltips.
-       "status" - Uses the status bar for tooltips (was the default).
-    */
-    "codeintel_tooltips": "popup",
-
-
-    /*
-       "buffer" - add word completions from current view
-       "all" - add word completions from all views from active window
-       "none" - do not add word completions
-    */
-    "codeintel_word_completions": "buffer",
-
-    /*
-       Insert functions snippets.
-    */
-    "codeintel_snippets": true,
-
-    /*
-       Define global filters to exclude paths from scanning. Use the codeintel_config setting for language specific settings.
-       ex: ["list/of","/path/to/exclude"]
-       (Currently only working for JavaScript and PHP)
-    */
-    "codeintel_scan_exclude_dir":[],
-
-    /* Code Scanning: Controls how the Code Intelligence system scans your source code files. */
-
-    /* Maximum directory depth: */
-    "codeintel_max_recursive_dir_depth": 10,
-
-    /* Include all files and directories from the project base directory: */
-    "codeintel_scan_files_in_project": true,
-
-    /* API Catalogs: SublimeCodeIntel uses API catalogs to provide autocomplete and calltips for 3rd-party libraries.
-      Add te libraries that you use in your code. Note: Adding all API catalogs for a particular language can lead to confusing results.
-
-      Avaliable catalogs:
-           PyWin32 (Python3) (for Python3: Python Extensions for Windows)
-           PyWin32 (for Python: Python Extensions for Windows)
-           Rails (for Ruby: Rails version 1.1.6)
-           jQuery (for JavaScript: jQuery JavaScript library - version 1.9.1)
-           Prototype (for JavaScript: JavaScript framework for web development)
-           dojo (for JavaScript: Dojo Toolkit API - version 1.5.0)
-           Ext_30 (for JavaScript: Ext JavaScript framework - version 3.0)
-           HTML5 (for JavaScript: HTML5 (Canvas, Web Messaging, Microdata))
-           MochiKit (for JavaScript: A lightweight JavaScript library - v1.4.2)
-           Mozilla Toolkit (for JavaScript: Mozilla Toolkit API - version 1.8)
-           XBL (for JavaScript: XBL JavaScript support - version 1.0)
-           YUI (for JavaScript: Yahoo! User Interface Library - v2.8.1)
-           Drupal (for PHP: A full-featured PHP content management/discussion engine -- v5.1)
-           PECL (for PHP: A collection of PHP Extensions)
-    */
-    "codeintel_selected_catalogs": [],
-
-    /*
-        When editing within a defined scope, no live completion will trigger. ex: ["comment"]
-     */
-    "codeintel_exclude_scopes_from_complete_triggers": ["comment"],
-
-    /*
-       Defines a configuration for each language.
-    */
-    "codeintel_language_settings": {
-        "Python3": {
-            "python3": "/usr/local/bin/python3.3",
-            "codeintel_scan_extra_dir": [
-                "/Applications/Sublime Text.app/Contents/MacOS",
-                "~/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/arch",
-                "~/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/libs"
-            ],
-            "codeintel_scan_files_in_project": true,
-            "codeintel_selected_catalogs": []
+        /*
+        Maps syntax names to languages. This allows variations on a syntax
+        (for example "Python (Django)") to be used. The key is
+        the base filename of the .tmLanguage syntax files, and the value
+        is the syntax it maps to.
+        */
+        "syntax_map": {
+            "C": "C++",
+            "C++11": "C++",
+            "Objective-C": "C++",
+            "Objective-C++": "C++",
+            "Python Django": "Python",
+            "PythonImproved": "Python",
+            "HTML (Django)": "Django",
+            "JavaScript": "ECMAScript",
+            "JavaScript (Babel)": "ECMAScript",
+            "Node.js": "ECMAScript",
+            "JSX": "ECMAScript"
         },
-        "JavaScript": {
-            "codeintel_scan_extra_dir": [],
-            "codeintel_scan_exclude_dir":["/build/", "/min/"],
-            "codeintel_scan_files_in_project": false,
-            "codeintel_max_recursive_dir_depth": 2,
-            "codeintel_selected_catalogs": ["jQuery"]
-        },
-        "PHP": {
-            "php": "/Applications/MAMP/bin/php/php5.5.3/bin/php",
-            "codeintel_scan_extra_dir": [],
-            "codeintel_scan_files_in_project": true,
-            "codeintel_max_recursive_dir_depth": 15,
-            "codeintel_scan_exclude_dir":["/Applications/MAMP/bin/php/php5.5.3/"]
+
+        /*
+            disabled_languages - List of codeintel disabled languages.
+        */
+        "disabled_languages": [],
+
+        /*
+            command - Executable for OOP codeintel command.
+        */
+        "command": "codeintel",
+
+        /*
+            oop_mode - OOP mode.
+        */
+        "oop_mode": "pipe",
+
+        /*
+            log_levels - Set the logging levels for the OOP loggers
+            This can be DEBUG, INFO, WARNING or ERROR; WARNGING is recommended,
+            other settings might have an impact in the perfocmance.
+        */
+
+        "log_levels" : ["WARNING"],
+
+        /*
+            complete_commit - Makes auto complete close autocomplete
+            window with certain characters.
+        */
+        "complete_commit": true,
+
+        /*
+            complete_commit_fillup - Makes codeintel fillup characters
+            when possible (inserting the selected item in the autocomplete). This
+            setting requires complete_commit.
+        */
+        "complete_commit_fillup": false,
+
+        /*
+            selected_catalogs - API Catalogs.
+            SublimeCodeIntel uses API catalogs to provide autocomplete and calltips
+            for 3rd-party libraries.
+
+            NOTE: Add only the libraries that you use in your code. Adding all API
+                catalogs for a particular language can lead to confusing results.
+
+            Avaliable catalogs:
+                PyWin32 (Python3) (for Python3: Python Extensions for Windows)
+                PyWin32 (for Python: Python Extensions for Windows)
+                Rails (for Ruby: Rails version 1.1.6)
+                jQuery (for JavaScript: jQuery JavaScript library - version 1.9.1)
+                Prototype (for JavaScript: JavaScript framework for web development)
+                dojo (for JavaScript: Dojo Toolkit API - version 1.5.0)
+                Ext_30 (for JavaScript: Ext JavaScript framework - version 3.0)
+                HTML5 (for JavaScript: HTML5 (Canvas, Web Messaging, Microdata))
+                MochiKit (for JavaScript: A lightweight JavaScript library - v1.4.2)
+                Mozilla Toolkit (for JavaScript: Mozilla Toolkit API - version 1.8)
+                XBL (for JavaScript: XBL JavaScript support - version 1.0)
+                YUI (for JavaScript: Yahoo! User Interface Library - v2.8.1)
+                Drupal (for PHP: A full-featured PHP content management/discussion engine -- v5.1)
+                PECL (for PHP: A collection of PHP Extensions)
+        */
+        "selected_catalogs": [],
+
+        /*
+            scan_files_in_project - Include all files and directories from
+            the project base directory and in the Sublime Text project.
+        */
+        "scan_files_in_project": true,
+
+        /*
+            max_recursive_dir_depth - Maximum recursion to use, when applicable.
+        */
+        "max_recursive_dir_depth": 10,
+
+        /*
+            scan_extra_paths - Extra directories to include during the scan,
+            additional to the ones configured by default.
+        */
+        "scan_extra_paths": [],
+
+        /*
+            scan_exclude_paths - Directories to exclude from the scan.
+        */
+        "scan_exclude_paths": ["/build/", "/min/"],
+
+        /*
+            env - Additional environment variables to use.
+        */
+        "env": {},
+
+        /*
+            Defines a configuration for each language. Each language can include any
+            of the available settings listed above, plus any others passed to CodeIntel.
+        */
+        "language_settings": {
+            "Python": {
+                "python": ""
+            },
+            "Python3": {
+                "python3": ""
+            },
+            "Ruby": {
+                "ruby": ""
+            },
+            "Perl": {
+                "perl": ""
+            },
+            "Go": {
+                "golangDefaultLocation": "",
+                "gocodeDefaultLocation": "",
+                "godefDefaultLocation": ""
+            },
+            "HTML": {
+                "defaultHTMLDecl": "-//W3C//DTD HTML 5//EN"
+            },
+            "HTML5": {
+                "defaultHTML5Decl": "-//W3C//DTD HTML 5//EN"
+            },
+            "JavaScript": {
+            },
+            "Node.js": {
+                "nodejsDefaultInterpreter": ""
+            },
+            "ECMAScript": {
+            },
+            "PHP": {
+                "php": "",
+                "phpConfigFile": ""
+            },
+            "C++": {
+                "cppFlags": ["-I/usr/local/include", "-L/usr/local/lib"]
+            }
         }
     }
 }

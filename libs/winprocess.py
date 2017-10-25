@@ -13,10 +13,10 @@
 # the rights to use, copy, modify, merge, publish, distribute, sublicense,
 # and/or sell copies of the Software, and to permit persons to whom the
 # Software is furnished to do so, subject to the following conditions:
-#
+# 
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-#
+# 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,13 +25,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from __future__ import absolute_import
 from ctypes import c_void_p, POINTER, sizeof, Structure, windll, WinError, WINFUNCTYPE
 from ctypes.wintypes import BOOL, BYTE, DWORD, HANDLE, LPCWSTR, LPWSTR, UINT, WORD
+import six
 
 LPVOID = c_void_p
 LPBYTE = POINTER(BYTE)
 LPDWORD = POINTER(DWORD)
-
 
 def ErrCheckBool(result, func, args):
     """errcheck function for Windows functions that return a BOOL True
@@ -48,20 +49,18 @@ CloseHandle.errcheck = ErrCheckBool
 
 # AutoHANDLE
 
-
 class AutoHANDLE(HANDLE):
     """Subclass of HANDLE which will call CloseHandle() on deletion."""
     def Close(self):
         if self.value:
             CloseHandle(self)
             self.value = 0
-
+    
     def __del__(self):
         self.Close()
 
     def __int__(self):
         return self.value
-
 
 def ErrCheckHandle(result, func, args):
     """errcheck function for Windows functions that return a HANDLE."""
@@ -71,7 +70,6 @@ def ErrCheckHandle(result, func, args):
 
 # PROCESS_INFORMATION structure
 
-
 class PROCESS_INFORMATION(Structure):
     _fields_ = [("hProcess", HANDLE),
                 ("hThread", HANDLE),
@@ -80,13 +78,12 @@ class PROCESS_INFORMATION(Structure):
 
     def __init__(self):
         Structure.__init__(self)
-
+        
         self.cb = sizeof(self)
 
 LPPROCESS_INFORMATION = POINTER(PROCESS_INFORMATION)
 
 # STARTUPINFO structure
-
 
 class STARTUPINFO(Structure):
     _fields_ = [("cb", DWORD),
@@ -110,18 +107,17 @@ class STARTUPINFO(Structure):
                 ]
 LPSTARTUPINFO = POINTER(STARTUPINFO)
 
-STARTF_USESHOWWINDOW = 0x01
-STARTF_USESIZE = 0x02
-STARTF_USEPOSITION = 0x04
-STARTF_USECOUNTCHARS = 0x08
+STARTF_USESHOWWINDOW    = 0x01
+STARTF_USESIZE          = 0x02
+STARTF_USEPOSITION      = 0x04
+STARTF_USECOUNTCHARS    = 0x08
 STARTF_USEFILLATTRIBUTE = 0x10
-STARTF_RUNFULLSCREEN = 0x20
-STARTF_FORCEONFEEDBACK = 0x40
+STARTF_RUNFULLSCREEN    = 0x20
+STARTF_FORCEONFEEDBACK  = 0x40
 STARTF_FORCEOFFFEEDBACK = 0x80
-STARTF_USESTDHANDLES = 0x100
+STARTF_USESTDHANDLES    = 0x100
 
 # EnvironmentBlock
-
 
 class EnvironmentBlock:
     """An object which can be passed as the lpEnv parameter of CreateProcess.
@@ -132,10 +128,10 @@ class EnvironmentBlock:
             self._as_parameter_ = None
         else:
             values = ["%s=%s" % (key, value)
-                      for (key, value) in dict.items()]
+                      for (key, value) in six.iteritems(dict)]
             values.append("")
             self._as_parameter_ = LPCWSTR("\0".join(values))
-
+        
 # CreateProcess()
 
 CreateProcessProto = WINFUNCTYPE(BOOL,                  # Return type
@@ -161,7 +157,6 @@ CreateProcessFlags = ((1, "lpApplicationName", None),
                       (1, "lpCurrentDirectory", None),
                       (1, "lpStartupInfo"),
                       (2, "lpProcessInformation"))
-
 
 def ErrCheckCreateProcess(result, func, args):
     ErrCheckBool(result, func, args)
@@ -213,7 +208,6 @@ AssignProcessToJobObject.errcheck = ErrCheckBool
 
 # ResumeThread()
 
-
 def ErrCheckResumeThread(result, func, args):
     if result == -1:
         raise WinError()
@@ -231,7 +225,7 @@ ResumeThread.errcheck = ErrCheckResumeThread
 # TerminateJobObject()
 
 TerminateJobObjectProto = WINFUNCTYPE(BOOL,   # Return type
-                                      HANDLE,  # hJob
+                                      HANDLE, # hJob
                                       UINT    # uExitCode
                                       )
 TerminateJobObjectFlags = ((1, "hJob"),
@@ -244,7 +238,7 @@ TerminateJobObject.errcheck = ErrCheckBool
 # WaitForSingleObject()
 
 WaitForSingleObjectProto = WINFUNCTYPE(DWORD,  # Return type
-                                       HANDLE,  # hHandle
+                                       HANDLE, # hHandle
                                        DWORD,  # dwMilliseconds
                                        )
 WaitForSingleObjectFlags = ((1, "hHandle"),
@@ -262,7 +256,7 @@ WAIT_ABANDONED = 0x0080
 
 GetExitCodeProcessProto = WINFUNCTYPE(BOOL,    # Return type
                                       HANDLE,  # hProcess
-                                      LPDWORD,  # lpExitCode
+                                      LPDWORD, # lpExitCode
                                       )
 GetExitCodeProcessFlags = ((1, "hProcess"),
                            (2, "lpExitCode"))

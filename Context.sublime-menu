@@ -1,3 +1,4 @@
 [
-
+    {"caption": "Jump to Symbol Definition", "command": "codeintel_go_to_definition"},
+    {"caption": "Back from Symbol Definition", "command": "codeintel_back_from_definition"}
 ]
